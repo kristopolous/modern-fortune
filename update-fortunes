@@ -1,0 +1,3 @@
+#!/bin/bash
+cd fortunes
+for i in *.dat; do strfile ${i/.dat/};done

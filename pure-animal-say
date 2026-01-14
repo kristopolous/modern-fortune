@@ -1,0 +1,16 @@
+#!/bin/bash
+size=$(( RANDOM % 15 + 30 ))
+fortune=$(/usr/games/fortune $PWD/fortunes)
+if [[ ${#fortune} -lt $(( size + 5 )) ]]; then
+  size=${#fortune}
+fi
+
+line="."$(printf    "%.0s-" $(seq 1 $((size + 4))))"."
+bottom=" ⠂--.  ⢠"$(printf    "%.0s-" $(seq 1 $((size - 4))))"⠂ "
+cat << ENDL
+$line
+$( builtin echo -e "\n$fortune\n" | ./repage.py $size no )
+$bottom
+     ⠡ :
+$(/usr/games/fortune characters | gawk ' { if (FNR == 1) { print " "  substr($0, 0, 5 )   "⠡:"  substr($0, 8); } else { print " "$0  } } ';)
+ENDL
